@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自习室预订</title>
+    <link rel="stylesheet" href="/static/jquery-weui/lib/weui.min.css">
+    <link rel="stylesheet" href="/static/jquery-weui/css/jquery-weui.min.css">
+    <style>
+        .page-title {
+            text-align: center;
+            font-size: 34px;
+            color: #3cc51f;
+            font-weight: 400;
+            margin: 0 15%;
+        }
+    </style>
+</head>
+<body>
+
+<header style="padding: 35px 0;">
+    <h1 class="page-title">注册</h1>
+</header>
+
+<div class="weui-cells__title">用户名/手机号</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" id="username" placeholder="请输入用户名/手机号">
+        </div>
+    </div>
+</div>
+<div class="weui-cells__title">密码</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="password" id = "password" placeholder="请输入密码">
+        </div>
+    </div>
+</div>
+<div class="weui-btn-area">
+    <a href="javascript: doRegister();" class="weui-btn weui-btn_plain-primary">注册</a>
+</div>
+
+
+<script src="/static/jquery-3.3.1.min.js"></script>
+<script src="/static/jquery-weui/js/jquery-weui.min.js"></script>
+<script>
+    function doRegister() {
+        var data2 = {username: $('#username').val(), password: $('#password').val()};
+        $.ajax({
+            url: '/api/user/register',
+            method: 'POST',
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(data2),
+            success: function (resp) {
+                console.info(resp);
+                if(resp.code==200){
+                    window.location.href = '/studyroom/login';
+                }else{
+                    alert(resp.message);
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+</script>
+</body>
+</html>
